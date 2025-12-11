@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aswini Mahalingam | Instrumentation Engineering Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --gray-color: #95a5a6;
+            --text-color: #333;
+            --text-light: #777;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+
+        .btn-download {
+            background-color: #27ae60;
+            margin-top: 10px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0 100px;
+            margin-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--light-color);
+        }
+
+        .hero-btns {
+            margin-top: 30px;
+        }
+
+        .hero-btns .btn {
+            margin: 0 10px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .about-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .detail-item h4 {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .download-resume {
+            margin-top: 30px;
+        }
+
+        /* Photo Upload Feature */
+        .avatar-upload-container {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .avatar-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        #profileImage {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .avatar-wrapper:hover #profileImage {
+            opacity: 0.7;
+        }
+
+        .upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.85);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .avatar-wrapper:hover .upload-overlay {
+            opacity: 1;
+        }
+
+        .upload-overlay i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .upload-overlay span {
+            font-size: 0.9rem;
+        }
+
+        /* Education & Experience */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background-color: var(--secondary-color);
+        }
+
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+            width: 50%;
+            padding-right: 40px;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: auto;
+            padding-left: 40px;
+            padding-right: 0;
+        }
+
+        .timeline-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .timeline-content:before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid white;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content:before {
+            right: auto;
+            left: -10px;
+            border-left: none;
+            border-right: 10px solid white;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 20px;
+            right: -8px;
+            width: 16px;
+            height: 16px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            right: auto;
+            left: -8px;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        /* Projects Section with Upload */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-img-container {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.05);
+        }
+
+        .project-upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.85);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .project-img-container:hover .project-upload-overlay {
+            opacity: 1;
+        }
+
+        .project-upload-overlay i {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .project-upload-overlay span {
+            font-size: 0.9rem;
+        }
+
+        .project-info {
+            padding: 25px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background-color: #eef5ff;
+            color: var(--secondary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Hidden project upload inputs */
+        .project-upload-input {
+            display: none;
+        }
+
+        /* Achievements Section */
+        .achievements-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .achievement-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .achievement-icon {
+            width: 70px;
+            height: 70px;
+            background-color: #eef5ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .skills-side-by-side {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .skill-category h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .skill-item {
+            margin-bottom: 20px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        .skill-list, .language-list {
+            list-style: none;
+        }
+
+        .skill-list li, .language-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .skill-list li:before, .language-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Interests & Languages Section */
+        #interests-languages {
+            background-color: #f8fafc;
+        }
+
+        /* Certifications Section */
+        .certifications-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .certification-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .certification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .certification-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #eef5ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #eef5ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Hidden Resume for PDF Generation */
+        #resume-pdf {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            background: white;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        .resume-header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+        }
+
+        .resume-header h1 {
+            font-size: 28px;
+            margin: 0 0 10px 0;
+            color: #000;
+        }
+
+        .resume-contact {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .resume-section {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+
+        .resume-section h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .resume-section h3 {
+            font-size: 16px;
+            margin: 10px 0 5px 0;
+            color: #333;
+        }
+
+        .resume-item {
+            margin-bottom: 10px;
+        }
+
+        .resume-list {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .resume-list li {
+            margin-bottom: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .avatar-upload-container {
+                max-width: 350px;
+            }
+            
+            .timeline:before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 0;
+            }
+            
+            .timeline-item:nth-child(even) {
+                margin-left: 0;
+                padding-left: 70px;
+            }
+            
+            .timeline-dot {
+                left: 22px;
+                right: auto;
+            }
+            
+            .timeline-content:before {
+                display: none;
+            }
+            
+            .skills-side-by-side {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .about-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-btns .btn {
+                display: block;
+                margin: 10px auto;
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hidden Resume for PDF Generation -->
+    <div id="resume-pdf">
+        <div class="resume-header">
+            <h1>ASWINI MAHALINGAM</h1>
+            <div class="resume-contact">
+                <div>16-11-2005</div>
+                <div>9025755027</div>
+                <div>aswinimugunthan2005@gmail.com</div>
+                <div>linked.com/in/Aswini</div>
+            </div>
+        </div>
+
+        <div class="resume-section">
+            <h2>SUMMARY</h2>
+            <p>Proactive Instrumentation Engineering student with experience in leading national-level initiatives. Strong teamwork and leadership skills, dedicated to applying knowledge and practical abilities to deliver impactful project outcomes.</p>
+        </div>
+
+        <div class="resume-section">
+            <h2>EDUCATION</h2>
+            <div class="resume-item">
+                <h3>Bachelor's of Engineering (Hons), 2027</h3>
+                <p><strong>Kongu Engineering College</strong></p>
+                <p>CGPA: 8.70</p>
+            </div>
+            <div class="resume-item">
+                <h3>Schoolings, 2023</h3>
+                <p><strong>Avvaiyar Government Girls Higher Secondary School</strong></p>
+                <p>Dharmapuri</p>
+                <p>Percentage: 87%</p>
+            </div>
+        </div>
+
+        <div class="resume-section">
+            <h2>EXPERIENCE</h2>
+            <div class="resume-item">
+                <h3>Ideas to Impact I2L - National Level Project</h3>
+                <p><strong>Project Team Leader</strong> (11/2024 - 10/2025)</p>
+                <ul class="resume-list">
+                    <li>Collaborated with team members to achieve target results</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="resume-section">
+            <h2>PROJECTS</h2>
+            <ul class="resume-list">
+                <li><strong>Crop and vegetable waste into electricity:</strong><br>IDEAS TO IMPACT I2L (National Level Project), Rs. 50,000</li>
+                <li><strong>Water level indicator and controller:</strong><br>Automation and smart product</li>
+            </ul>
+        </div>
+
+        <div class="resume-section">
+            <h2>ACHIEVEMENTS</h2>
+            <ul class="resume-list">
+                <li>Best student Award 2023</li>
+                <li>Ideas to Impact Finalist I2L</li>
+                <li>Start-Up mania 9.0 Finalist</li>
+            </ul>
+        </div>
+
+        <div class="resume-section">
+            <h2>CERTIFICATIONS</h2>
+            <ul class="resume-list">
+                <li>Cadence certificate - Completed hands-on training in Cadence simulation tools, gaining practical experience in designing and analyzing electronic circuits.</li>
+                <li>Infosys python certificate - Certified by Infosys Springboard for demonstrating strong foundations in Python programming, including problem-solving and coding skills.</li>
+            </ul>
+        </div>
+
+        <div class="resume-section">
+            <h2>PROFILES</h2>
+            <p><strong>Halbits:</strong> https://hdlbits.01xz.net/wiki/Special:VlgStats/9F8A5B8678F32916</p>
+            <p><strong>Leetcode:</strong> leetcode.com/Aswini-M</p>
+        </div>
+
+        <div class="resume-section">
+            <h2>AREA OF INTEREST</h2>
+            <ul class="resume-list">
+                <li>Digital and Analog Electronics</li>
+                <li>Industrial Process Control</li>
+                <li>Sensors and Transducer</li>
+            </ul>
+        </div>
+
+        <div class="resume-section">
+            <h2>SKILLS</h2>
+            <div class="resume-item">
+                <h3>Technical Skills</h3>
+                <ul class="resume-list">
+                    <li>Proteus (Simulation)</li>
+                    <li>Keil (Simulation)</li>
+                    <li>C programming</li>
+                    <li>Verilog (beginner)</li>
+                </ul>
+            </div>
+            <div class="resume-item">
+                <h3>Soft Skills</h3>
+                <ul class="resume-list">
+                    <li>Leadership</li>
+                    <li>Time Management</li>
+                    <li>Team work & collaboration</li>
+                    <li>Problem solving</li>
+                    <li>Adaptability</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="resume-section">
+            <h2>LANGUAGE</h2>
+            <ul class="resume-list">
+                <li>Tamil</li>
+                <li>English</li>
+                <li>Hindi</li>
+                <li>Japanese (beginner)</li>
+            </ul>
+        </div>
+
+        <div class="resume-section">
+            <h2>PERSONAL DETAILS</h2>
+            <p><strong>Father's name:</strong> Mahalingam A</p>
+            <p><strong>Address:</strong> Dharmapuri - 636804</p>
+            <p><strong>Email:</strong> aswinim.23eie@kongu.edu</p>
+            <p><strong>Hobbies:</strong> Writing Tamil poetries, Watching science fiction movies</p>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">Aswini<span>Mahalingam</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#interests-languages">Interests & Languages</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Aswini Mahalingam</h1>
+            <p>Proactive Instrumentation Engineering student with experience in leading national-level initiatives. Strong teamwork and leadership skills, dedicated to applying knowledge and practical abilities to deliver impactful project outcomes.</p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn">View My Projects</a>
+                <a href="#contact" class="btn btn-accent">Get In Touch</a>
+                <a href="#" class="btn btn-download" id="downloadResumeBtn">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Instrumentation Engineering Student</h3>
+                    <p>I am a dedicated and proactive Instrumentation Engineering student at Kongu Engineering College, with a strong academic record and experience in leading national-level projects. I'm passionate about applying my knowledge in digital/analog electronics, industrial process control, and sensor technology to create innovative solutions.</p>
+                    
+                    <div class="about-details">
+                        <div class="detail-item">
+                            <h4>Email</h4>
+                            <p>aswinimugunthan2005@gmail.com</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Phone</h4>
+                            <p>9025755027</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Location</h4>
+                            <p>Dharmapuri, Tamil Nadu</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>College Email</h4>
+                            <p>aswinim.23eie@kongu.edu</p>
+                        </div>
+                    </div>
+                    
+                    <p>I'm actively involved in technical projects and competitions, with achievements including being a finalist in the Ideas to Impact I2L national-level project and Start-Up Mania 9.0. I enjoy writing Tamil poetry and watching science fiction movies in my free time.</p>
+                    
+                    <div class="download-resume">
+                        <a href="#" class="btn btn-download" id="downloadResumeBtn2">
+                            <i class="fas fa-download"></i> Download My Resume
+                        </a>
+                    </div>
+                </div>
+                <!-- Photo Upload Container -->
+                <div class="avatar-upload-container">
+                    <input type="file" id="profileUpload" accept="image/*" style="display: none;">
+                    <label for="profileUpload" class="avatar-label">
+                        <div class="avatar-wrapper">
+                            <img id="profileImage" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Aswini Mahalingam">
+                            <div class="upload-overlay">
+                                <i class="fas fa-camera"></i>
+                                <span>Click to upload photo</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Experience Section -->
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title">Education & Experience</h2>
+            <div class="timeline">
+                <!-- Education -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023 - 2027</div>
+                        <h3>Bachelor's of Engineering (Hons)</h3>
+                        <h4>Kongu Engineering College</h4>
+                        <p>CGPA: 8.70<br>Specialization: Instrumentation Engineering</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023</div>
+                        <h3>Higher Secondary Education</h3>
+                        <h4>Avvaiyar Government Girls Higher Secondary School, Dharmapuri</h4>
+                        <p>Percentage: 87%</p>
+                    </div>
+                </div>
+                
+                <!-- Experience -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Nov 2024 - Oct 2025</div>
+                        <h3>Project Team Leader</h3>
+                        <h4>Ideas to Impact I2L - National Level Project</h4>
+                        <p>Led a team to develop innovative solutions, collaborating with team members to achieve target results and deliverables for the national-level competition.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section with Upload -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1: Crop Waste to Electricity -->
+                <div class="project-card">
+                    <div class="project-img-container">
+                        <img class="project-img" id="project1Image" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Crop Waste to Electricity Project">
+                        <input type="file" id="project1Upload" class="project-upload-input" accept="image/*">
+                        <div class="project-upload-overlay" onclick="document.getElementById('project1Upload').click()">
+                            <i class="fas fa-camera"></i>
+                            <span>Click to upload project image</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Crop and Vegetable Waste into Electricity</h3>
+                        <p>National level project under Ideas to Impact I2L with funding of Rs. 50,000. Developed an innovative system to convert agricultural waste into usable electricity using sustainable energy conversion methods.</p>
+                        <div class="project-tags">
+                            <span class="tag">Renewable Energy</span>
+                            <span class="tag">Solar Power</span>
+                            <span class="tag">Waste Management</span>
+                            <span class="tag">Innovation</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Water Level Controller -->
+                <div class="project-card">
+                    <div class="project-img-container">
+                        <img class="project-img" id="project2Image" src="https://images.unsplash.com/photo-1502781252888-9143ba7f074e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Water Level Controller Project">
+                        <input type="file" id="project2Upload" class="project-upload-input" accept="image/*">
+                        <div class="project-upload-overlay" onclick="document.getElementById('project2Upload').click()">
+                            <i class="fas fa-camera"></i>
+                            <span>Click to upload project image</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Water Level Indicator and Controller</h3>
+                        <p>Automation and smart product designed to monitor and control water levels in tanks or reservoirs. Uses advanced sensor technology and IoT for efficient water management and conservation.</p>
+                        <div class="project-tags">
+                            <span class="tag">Automation</span>
+                            <span class="tag">IoT</span>
+                            <span class="tag">Water Conservation</span>
+                            <span class="tag">Sensors</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3: Start-Up Mania -->
+                <div class="project-card">
+                    <div class="project-img-container">
+                        <img class="project-img" id="project3Image" src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Start-Up Mania Project">
+                        <input type="file" id="project3Upload" class="project-upload-input" accept="image/*">
+                        <div class="project-upload-overlay" onclick="document.getElementById('project3Upload').click()">
+                            <i class="fas fa-camera"></i>
+                            <span>Click to upload project image</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Start-Up Mania 9.0 Finalist Project</h3>
+                        <p>Participated as a finalist in the Start-Up Mania 9.0 competition, developing a business idea and prototype in the instrumentation/electronics domain with practical applications.</p>
+                        <div class="project-tags">
+                            <span class="tag">Entrepreneurship</span>
+                            <span class="tag">Innovation</span>
+                            <span class="tag">Competition</span>
+                            <span class="tag">Prototype</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="achievements">
+        <div class="container">
+            <h2 class="section-title">My Achievements</h2>
+            <div class="achievements-container">
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Best Student Award 2023</h3>
+                    <p>Awarded for exceptional academic performance and overall contribution at the department level in my first year.</p>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>Ideas to Impact Finalist i2I</h3>
+                    <p>Selected as a finalist in the national-level Ideas to Impact I2L competition for innovative project on converting crop waste to electricity with Rs. 50,000 funding.</p>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Start-Up Mania 9.0 Finalist</h3>
+                    <p>Recognized as a finalist in Start-Up Mania 9.0 competition for developing innovative business solutions in the instrumentation and electronics domain.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="skills-side-by-side">
+                <div class="skill-category">
+                    <h3>Technical Skills</h3>
+                    <ul class="skill-list">
+                        <li>SCADA</li>
+                        <li>Proteus (Simulation)</li>
+                        <li>Keil (Simulation)</li>
+                        <li>C Programming</li>
+                        <li>Verilog (Beginner)</li>
+                        <li>Circuit Design</li>
+                        <li>Electronic Simulation</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Soft Skills</h3>
+                    <ul class="skill-list">
+                        <li>Leadership</li>
+                        <li>Time Management</li>
+                        <li>Teamwork & Collaboration</li>
+                        <li>Problem Solving</li>
+                        <li>Adaptability</li>
+                        <li>Communication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests & Languages Section -->
+    <section id="interests-languages">
+        <div class="container">
+            <h2 class="section-title">Interests & Languages</h2>
+            <div class="skills-side-by-side">
+                <div class="skill-category">
+                    <h3>Area of Interest</h3>
+                    <ul class="skill-list">
+                        <li>Digital and Analog Electronics</li>
+                        <li>Sensors and Transducer</li>
+                        <li>Industrial Process Control</li>
+                        <li>PLC and Scada</li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Languages Known</h3>
+                    <ul class="language-list">
+                        <li><strong>Tamil:</strong> Native</li>
+                        <li><strong>English:</strong> Fluent</li>
+                        <li><strong>Hindi:</strong> Intermediate</li>
+                        <li><strong>Japanese:</strong> Beginner</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certifications-container">
+                <div class="certification-card">
+                    <div class="certification-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Cadence Certificate</h3>
+                    <p>Completed hands-on training in Cadence simulation tools, gaining practical experience in designing and analyzing electronic circuits. Developed skills in circuit simulation, layout design, and verification processes.</p>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="certification-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Infosys Python Certificate</h3>
+                    <p>Certified by Infosys Springboard for demonstrating strong foundations in Python programming, including problem-solving and coding skills. Covered data structures, algorithms, and practical applications in software development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>aswinimugunthan2005@gmail.com</p>
+                            <p>aswinim.23eie@kongu.edu</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>9025755027</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Dharmapuri - 636804, Tamil Nadu</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div>
+                            <h3>Online Profiles</h3>
+                            <p><a href="https://linked.com/in/Aswini" target="_blank">LinkedIn Profile</a></p>
+                            <p><a href="https://leetcode.com/Aswini-M" target="_blank">LeetCode Profile</a></p>
+                            <p><a href="https://hdlbits.01xz.net/wiki/Special:VlgStats/9F8A5B8678F32916" target="_blank">HDL Bits Profile</a></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="text" placeholder="Subject" required>
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h2 class="logo" style="color: white;">Aswini<span style="color: #3498db;">Mahalingam</span></h2>
+                    <p style="margin-top: 10px; color: rgba(255, 255, 255, 0.8);">Instrumentation Engineering Student | Innovator | Project Leader</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://linked.com/in/Aswini" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://leetcode.com/Aswini-M" target="_blank"><i class="fas fa-code"></i></a>
+                    <a href="mailto:aswinimugunthan2005@gmail.com"><i class="fas fa-envelope"></i></a>
+                    <a href="tel:9025755027"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Aswini Mahalingam. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+        
+        // Add active class to nav links based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if(scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if(item.getAttribute('href').substring(1) === current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Photo Upload Functionality
+        document.getElementById('profileUpload').addEventListener('change', function(event) {
+            handleImageUpload(event, 'profileImage', 'profilePhoto');
+        });
+        
+        // Project Image Upload Functionality
+        document.getElementById('project1Upload').addEventListener('change', function(event) {
+            handleImageUpload(event, 'project1Image', 'project1Photo');
+        });
+        
+        document.getElementById('project2Upload').addEventListener('change', function(event) {
+            handleImageUpload(event, 'project2Image', 'project2Photo');
+        });
+        
+        document.getElementById('project3Upload').addEventListener('change', function(event) {
+            handleImageUpload(event, 'project3Image', 'project3Photo');
+        });
+        
+        // Universal Image Upload Handler
+        function handleImageUpload(event, imageElementId, storageKey) {
+            const file = event.target.files[0];
+            if (file) {
+                // Check file type
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                if (!validTypes.includes(file.type)) {
+                    alert('Please upload a valid image file (JPEG, PNG, or GIF)');
+                    return;
+                }
+                
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Image size should be less than 5MB');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageElement = document.getElementById(imageElementId);
+                    imageElement.src = e.target.result;
+                    
+                    // Save to localStorage for persistence
+                    localStorage.setItem(storageKey, e.target.result);
+                    
+                    // Show success message for profile photo only
+                    if (imageElementId === 'profileImage') {
+                        alert('Profile photo updated successfully!');
+                    } else {
+                        alert('Project image updated successfully!');
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Load saved images from localStorage on page load
+        window.addEventListener('load', function() {
+            // Load profile photo
+            const savedProfileImage = localStorage.getItem('profilePhoto');
+            if (savedProfileImage) {
+                document.getElementById('profileImage').src = savedProfileImage;
+            }
+            
+            // Load project images
+            const savedProject1Image = localStorage.getItem('project1Photo');
+            if (savedProject1Image) {
+                document.getElementById('project1Image').src = savedProject1Image;
+            }
+            
+            const savedProject2Image = localStorage.getItem('project2Photo');
+            if (savedProject2Image) {
+                document.getElementById('project2Image').src = savedProject2Image;
+            }
+            
+            const savedProject3Image = localStorage.getItem('project3Photo');
+            if (savedProject3Image) {
+                document.getElementById('project3Image').src = savedProject3Image;
+            }
+        });
+        
+        // Download Resume Functionality
+        function downloadResume() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            
+            // Set margins
+            const marginLeft = 20;
+            const marginTop = 20;
+            let currentY = marginTop;
+            
+            // Title
+            doc.setFontSize(22);
+            doc.setFont('helvetica', 'bold');
+            doc.text('ASWINI MAHALINGAM', marginLeft, currentY);
+            currentY += 10;
+            
+            // Contact Information
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            const contactInfo = '16-11-2005  |  9025755027  |  aswinimugunthan2005@gmail.com  |  linked.com/in/Aswini';
+            doc.text(contactInfo, marginLeft, currentY);
+            currentY += 15;
+            
+            // Line separator
+            doc.setLineWidth(0.5);
+            doc.line(marginLeft, currentY, 190, currentY);
+            currentY += 10;
+            
+            // Summary Section
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('SUMMARY', marginLeft, currentY);
+            currentY += 8;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            const summary = 'Proactive Instrumentation Engineering student with experience in leading national-level initiatives. Strong teamwork and leadership skills, dedicated to applying knowledge and practical abilities to deliver impactful project outcomes.';
+            const summaryLines = doc.splitTextToSize(summary, 170);
+            doc.text(summaryLines, marginLeft, currentY);
+            currentY += (summaryLines.length * 6) + 10;
+            
+            // Education Section
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('EDUCATION', marginLeft, currentY);
+            currentY += 8;
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text("Bachelor's of Engineering (Hons), 2027", marginLeft, currentY);
+            currentY += 6;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Kongu Engineering College', marginLeft, currentY);
+            currentY += 5;
+            doc.text('CGPA: 8.70', marginLeft, currentY);
+            currentY += 10;
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Schoolings, 2023', marginLeft, currentY);
+            currentY += 6;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Avvaiyar Government Girls Higher Secondary School', marginLeft, currentY);
+            currentY += 5;
+            doc.text('Dharmapuri', marginLeft, currentY);
+            currentY += 5;
+            doc.text('Percentage: 87%', marginLeft, currentY);
+            currentY += 15;
+            
+            // Experience Section
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('EXPERIENCE', marginLeft, currentY);
+            currentY += 8;
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Ideas to Impact I2L - National Level Project', marginLeft, currentY);
+            currentY += 6;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Project Team Leader (11/2024 - 10/2025)', marginLeft, currentY);
+            currentY += 6;
+            
+            doc.setFont('helvetica', 'normal');
+            doc.text('• Collaborated with team members to achieve target results', marginLeft + 5, currentY);
+            currentY += 15;
+            
+            // Projects Section
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('PROJECTS', marginLeft, currentY);
+            currentY += 8;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text('• Crop and vegetable waste into electricity:', marginLeft, currentY);
+            currentY += 6;
+            doc.text('  IDEAS TO IMPACT I2L (National Level Project), Rs. 50,000', marginLeft + 10, currentY);
+            currentY += 10;
+            
+            doc.text('• Water level indicator and controller:', marginLeft, currentY);
+            currentY += 6;
+            doc.text('  Automation and smart product', marginLeft + 10, currentY);
+            currentY += 15;
+            
+            // Achievements Section
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('ACHIEVEMENTS', marginLeft, currentY);
+            currentY += 8;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text('• Best student Award 2023', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• Ideas to Impact Finalist I2L', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• Start-Up mania 9.0 Finalist', marginLeft, currentY);
+            currentY += 15;
+            
+            // If we're running out of space, add a new page
+            if (currentY > 250) {
+                doc.addPage();
+                currentY = marginTop;
+            }
+            
+            // Certifications Section
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CERTIFICATIONS', marginLeft, currentY);
+            currentY += 8;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text('• Cadence certificate', marginLeft, currentY);
+            currentY += 6;
+            const cadenceDesc = doc.splitTextToSize('  Completed hands-on training in Cadence simulation tools, gaining practical experience in designing and analyzing electronic circuits.', 165);
+            doc.text(cadenceDesc, marginLeft + 10, currentY);
+            currentY += (cadenceDesc.length * 6) + 6;
+            
+            doc.text('• Infosys python certificate', marginLeft, currentY);
+            currentY += 6;
+            const pythonDesc = doc.splitTextToSize('  Certified by Infosys Springboard for demonstrating strong foundations in Python programming, including problem-solving and coding skills.', 165);
+            doc.text(pythonDesc, marginLeft + 10, currentY);
+            currentY += (pythonDesc.length * 6) + 15;
+            
+            // Skills Section
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('SKILLS', marginLeft, currentY);
+            currentY += 8;
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Technical Skills', marginLeft, currentY);
+            currentY += 6;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text('• Proteus (Simulation)', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• Keil (Simulation)', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• C programming', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• Verilog (beginner)', marginLeft, currentY);
+            currentY += 10;
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Soft Skills', marginLeft, currentY);
+            currentY += 6;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text('• Leadership', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• Time Management', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• Team work & collaboration', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• Problem solving', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• Adaptability', marginLeft, currentY);
+            currentY += 15;
+            
+            // Area of Interest
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('AREA OF INTEREST', marginLeft, currentY);
+            currentY += 8;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text('• Digital and Analog Electronics', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• Industrial Process Control', marginLeft, currentY);
+            currentY += 6;
+            doc.text('• Sensors and Transducer', marginLeft, currentY);
+            currentY += 15;
+            
+            // Personal Details
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('PERSONAL DETAILS', marginLeft, currentY);
+            currentY += 8;
+            
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Father's name: Mahalingam A`, marginLeft, currentY);
+            currentY += 6;
+            doc.text('Address: Dharmapuri - 636804', marginLeft, currentY);
+            currentY += 6;
+            doc.text('Email: aswinim.23eie@kongu.edu', marginLeft, currentY);
+            currentY += 6;
+            doc.text('Hobbies: Writing Tamil poetries, Watching science fiction movies', marginLeft, currentY);
+            
+            // Save the PDF
+            doc.save('Aswini_Mahalingam_Resume.pdf');
+        }
+        
+        // Add event listeners to download buttons
+        document.getElementById('downloadResumeBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            downloadResume();
+        });
+        
+        document.getElementById('downloadResumeBtn2').addEventListener('click', function(e) {
+            e.preventDefault();
+            downloadResume();
+        });
+    </script>
+</body>
+</html>
