@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+PE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -209,19 +209,6 @@
             gap: 50px;
         }
 
-        .about-img {
-            flex: 1;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
         .about-text {
             flex: 1;
         }
@@ -246,6 +233,73 @@
 
         .download-resume {
             margin-top: 30px;
+        }
+
+        /* Photo Upload Feature */
+        .avatar-upload-container {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .avatar-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        #profileImage {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .avatar-wrapper:hover #profileImage {
+            opacity: 0.7;
+        }
+
+        .upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.85);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .avatar-wrapper:hover .upload-overlay {
+            opacity: 1;
+        }
+
+        .upload-overlay i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .upload-overlay span {
+            font-size: 0.9rem;
         }
 
         /* Education & Experience */
@@ -327,7 +381,7 @@
             margin-bottom: 5px;
         }
 
-        /* Projects Section */
+        /* Projects Section with Upload */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -347,20 +401,53 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
-        .project-img {
+        .project-img-container {
             height: 200px;
             overflow: hidden;
+            position: relative;
         }
 
-        .project-img img {
+        .project-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: var(--transition);
         }
 
-        .project-card:hover .project-img img {
+        .project-card:hover .project-img {
             transform: scale(1.05);
+        }
+
+        .project-upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.85);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .project-img-container:hover .project-upload-overlay {
+            opacity: 1;
+        }
+
+        .project-upload-overlay i {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .project-upload-overlay span {
+            font-size: 0.9rem;
         }
 
         .project-info {
@@ -381,6 +468,11 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
+        }
+
+        /* Hidden project upload inputs */
+        .project-upload-input {
+            display: none;
         }
 
         /* Achievements Section */
@@ -476,6 +568,11 @@
             left: 0;
             color: var(--secondary-color);
             font-weight: bold;
+        }
+
+        /* Interests & Languages Section */
+        #interests-languages {
+            background-color: #f8fafc;
         }
 
         /* Certifications Section */
@@ -668,21 +765,14 @@
             margin-bottom: 5px;
         }
 
-        /* Page Styles */
-        .page {
-            padding-top: 120px;
-            min-height: calc(100vh - 80px);
-        }
-
         /* Responsive Design */
         @media (max-width: 992px) {
             .about-content {
                 flex-direction: column;
             }
             
-            .about-img {
-                max-width: 400px;
-                margin: 0 auto;
+            .avatar-upload-container {
+                max-width: 350px;
             }
             
             .timeline:before {
@@ -912,6 +1002,7 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#achievements">Achievements</a></li>
                 <li><a href="#skills">Skills</a></li>
+                <li><a href="#interests-languages">Interests & Languages</a></li>
                 <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -969,8 +1060,18 @@
                         </a>
                     </div>
                 </div>
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Aswini Mahalingam">
+                <!-- Photo Upload Container -->
+                <div class="avatar-upload-container">
+                    <input type="file" id="profileUpload" accept="image/*" style="display: none;">
+                    <label for="profileUpload" class="avatar-label">
+                        <div class="avatar-wrapper">
+                            <img id="profileImage" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Aswini Mahalingam">
+                            <div class="upload-overlay">
+                                <i class="fas fa-camera"></i>
+                                <span>Click to upload photo</span>
+                            </div>
+                        </div>
+                    </label>
                 </div>
             </div>
         </div>
@@ -1016,14 +1117,20 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects Section with Upload -->
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">My Projects</h2>
             <div class="projects-grid">
+                <!-- Project 1: Crop Waste to Electricity -->
                 <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Solar Panels for Renewable Energy">
+                    <div class="project-img-container">
+                        <img class="project-img" id="project1Image" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Crop Waste to Electricity Project">
+                        <input type="file" id="project1Upload" class="project-upload-input" accept="image/*">
+                        <div class="project-upload-overlay" onclick="document.getElementById('project1Upload').click()">
+                            <i class="fas fa-camera"></i>
+                            <span>Click to upload project image</span>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Crop and Vegetable Waste into Electricity</h3>
@@ -1037,9 +1144,15 @@
                     </div>
                 </div>
                 
+                <!-- Project 2: Water Level Controller -->
                 <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1502781252888-9143ba7f074e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Water Level Control System">
+                    <div class="project-img-container">
+                        <img class="project-img" id="project2Image" src="https://images.unsplash.com/photo-1502781252888-9143ba7f074e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Water Level Controller Project">
+                        <input type="file" id="project2Upload" class="project-upload-input" accept="image/*">
+                        <div class="project-upload-overlay" onclick="document.getElementById('project2Upload').click()">
+                            <i class="fas fa-camera"></i>
+                            <span>Click to upload project image</span>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Water Level Indicator and Controller</h3>
@@ -1053,9 +1166,15 @@
                     </div>
                 </div>
                 
+                <!-- Project 3: Start-Up Mania -->
                 <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Start-Up Mania">
+                    <div class="project-img-container">
+                        <img class="project-img" id="project3Image" src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Start-Up Mania Project">
+                        <input type="file" id="project3Upload" class="project-upload-input" accept="image/*">
+                        <div class="project-upload-overlay" onclick="document.getElementById('project3Upload').click()">
+                            <i class="fas fa-camera"></i>
+                            <span>Click to upload project image</span>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Start-Up Mania 9.0 Finalist Project</h3>
@@ -1082,14 +1201,14 @@
                         <i class="fas fa-trophy"></i>
                     </div>
                     <h3>Best Student Award 2023</h3>
-                    <p>Awarded for exceptional academic performance and overall contribution to the school community at Avvaiyar Government Girls Higher Secondary School.</p>
+                    <p>Awarded for exceptional academic performance and overall contribution at the department level in my first year.</p>
                 </div>
                 
                 <div class="achievement-card">
                     <div class="achievement-icon">
                         <i class="fas fa-medal"></i>
                     </div>
-                    <h3>Ideas to Impact Finalist I2L</h3>
+                    <h3>Ideas to Impact Finalist i2I</h3>
                     <p>Selected as a finalist in the national-level Ideas to Impact I2L competition for innovative project on converting crop waste to electricity with Rs. 50,000 funding.</p>
                 </div>
                 
@@ -1112,6 +1231,7 @@
                 <div class="skill-category">
                     <h3>Technical Skills</h3>
                     <ul class="skill-list">
+                        <li>SCADA</li>
                         <li>Proteus (Simulation)</li>
                         <li>Keil (Simulation)</li>
                         <li>C Programming</li>
@@ -1133,26 +1253,32 @@
                     </ul>
                 </div>
             </div>
-            
-            <div class="skills-container">
+        </div>
+    </section>
+
+    <!-- Interests & Languages Section -->
+    <section id="interests-languages">
+        <div class="container">
+            <h2 class="section-title">Interests & Languages</h2>
+            <div class="skills-side-by-side">
                 <div class="skill-category">
                     <h3>Area of Interest</h3>
                     <ul class="skill-list">
                         <li>Digital and Analog Electronics</li>
-                        <li>Industrial Process Control</li>
                         <li>Sensors and Transducer</li>
-                        <li>Renewable Energy Systems</li>
-                        <li>Automation & IoT</li>
+                        <li>Industrial Process Control</li>
+                        <li>PLC and Scada</li>
+                        
                     </ul>
                 </div>
                 
                 <div class="skill-category">
-                    <h3>Languages</h3>
+                    <h3>Languages Known</h3>
                     <ul class="language-list">
-                        <li>Tamil (Native)</li>
-                        <li>English (Fluent)</li>
-                        <li>Hindi (Intermediate)</li>
-                        <li>Japanese (Beginner)</li>
+                        <li><strong>Tamil:</strong> Native</li>
+                        <li><strong>English:</strong> Fluent</li>
+                        <li><strong>Hindi:</strong> Intermediate</li>
+                        <li><strong>Japanese:</strong> Beginner</li>
                     </ul>
                 </div>
             </div>
@@ -1332,6 +1458,85 @@
                     item.classList.add('active');
                 }
             });
+        });
+        
+        // Photo Upload Functionality
+        document.getElementById('profileUpload').addEventListener('change', function(event) {
+            handleImageUpload(event, 'profileImage', 'profilePhoto');
+        });
+        
+        // Project Image Upload Functionality
+        document.getElementById('project1Upload').addEventListener('change', function(event) {
+            handleImageUpload(event, 'project1Image', 'project1Photo');
+        });
+        
+        document.getElementById('project2Upload').addEventListener('change', function(event) {
+            handleImageUpload(event, 'project2Image', 'project2Photo');
+        });
+        
+        document.getElementById('project3Upload').addEventListener('change', function(event) {
+            handleImageUpload(event, 'project3Image', 'project3Photo');
+        });
+        
+        // Universal Image Upload Handler
+        function handleImageUpload(event, imageElementId, storageKey) {
+            const file = event.target.files[0];
+            if (file) {
+                // Check file type
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                if (!validTypes.includes(file.type)) {
+                    alert('Please upload a valid image file (JPEG, PNG, or GIF)');
+                    return;
+                }
+                
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Image size should be less than 5MB');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageElement = document.getElementById(imageElementId);
+                    imageElement.src = e.target.result;
+                    
+                    // Save to localStorage for persistence
+                    localStorage.setItem(storageKey, e.target.result);
+                    
+                    // Show success message for profile photo only
+                    if (imageElementId === 'profileImage') {
+                        alert('Profile photo updated successfully!');
+                    } else {
+                        alert('Project image updated successfully!');
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Load saved images from localStorage on page load
+        window.addEventListener('load', function() {
+            // Load profile photo
+            const savedProfileImage = localStorage.getItem('profilePhoto');
+            if (savedProfileImage) {
+                document.getElementById('profileImage').src = savedProfileImage;
+            }
+            
+            // Load project images
+            const savedProject1Image = localStorage.getItem('project1Photo');
+            if (savedProject1Image) {
+                document.getElementById('project1Image').src = savedProject1Image;
+            }
+            
+            const savedProject2Image = localStorage.getItem('project2Photo');
+            if (savedProject2Image) {
+                document.getElementById('project2Image').src = savedProject2Image;
+            }
+            
+            const savedProject3Image = localStorage.getItem('project3Photo');
+            if (savedProject3Image) {
+                document.getElementById('project3Image').src = savedProject3Image;
+            }
         });
         
         // Download Resume Functionality
